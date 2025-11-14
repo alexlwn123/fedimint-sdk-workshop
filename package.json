@@ -37,6 +37,5 @@
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.7.0",
     "vite": "^5.4.8"
-  },
-  "packageManager": "pnpm@8.10.5+sha1.4370a069f21873a0ad83c785b8048ed8caf6e6e9"
+  }
 }
