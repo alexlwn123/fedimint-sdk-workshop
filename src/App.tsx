@@ -15,16 +15,13 @@ const App = () => {
 
   useEffect(() => {
     const openWallet = async () => {
-      const isOpen = await wallet.isOpen();
-      
-      if (!isOpen) {
-        const didOpen = await wallet.open();
-        if (!didOpen) {
-          wallet.joinFederation(FEDERATION_INVITE);
-        }
+      try {
+        await wallet.open();
+      } catch (error) {
+        console.error('Failed to open wallet:', error)
+        await wallet.joinFederation(FEDERATION_INVITE);
       }
     };
-    
     if (!wallet.isOpen()) openWallet();
   }, []);
 
