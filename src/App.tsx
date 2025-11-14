@@ -15,15 +15,19 @@ const App = () => {
 
   useEffect(() => {
     const openWallet = async () => {
-      const isOpen = await wallet.open();
+      const isOpen = await wallet.isOpen();
       
       if (!isOpen) {
-        wallet.joinFederation(FEDERATION_INVITE);
+        const didOpen = await wallet.open();
+        if (!didOpen) {
+          wallet.joinFederation(FEDERATION_INVITE);
+        }
       }
     };
     
     if (!wallet.isOpen()) openWallet();
   }, []);
+
   // WalletApp
   useEffect(() => {
     const handleSetup = async () => {
