@@ -11,20 +11,17 @@ const App = () => {
   const [generatedInvoice, setGeneratedInvoice] = useState<string>('')
   const [amount, setAmount] = useState<string>('')
 
+  // src/App.tsx
   const FEDERATION_INVITE = "fed11qgqrgvnhwden5te0v9k8q6rp9ekh2arfdeukuet595cr2ttpd3jhq6rzve6zuer9wchxvetyd938gcewvdhk6tcqqysptkuvknc7erjgf4em3zfh90kffqf9srujn6q53d6r056e4apze5cw27h75"; // testnet
 
   useEffect(() => {
     const openWallet = async () => {
-      const isOpen = await wallet.isOpen();
-      
-      if (!isOpen) {
-        const didOpen = await wallet.open();
-        if (!didOpen) {
-          wallet.joinFederation(FEDERATION_INVITE);
-        }
+      try {
+        await wallet.open();
+      } catch  {
+        await wallet.joinFederation(FEDERATION_INVITE);
       }
     };
-    
     if (!wallet.isOpen()) openWallet();
   }, []);
 
@@ -71,7 +68,6 @@ const App = () => {
 
 
   const handleReceiveSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
     // Handle receive logic here
     console.log('Receiving amount:', amount)
     e.preventDefault();
